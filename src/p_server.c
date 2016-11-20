@@ -1110,9 +1110,6 @@ int msgprivmsg(int usern)
 #ifdef CRYPT
     checkcrypt(usern);
 #endif
-#ifdef TRANSLATE
-    checktranslate(usern);
-#endif
     strcpy(buf,"op ");
     po = strstr(irccontent,buf);
     if (po == irccontent) {

@@ -11,10 +11,6 @@
 
 #define BLOWFISH
 
-/* Allow Translation */
-
-#define TRANSLATE
-
 /* Allow internal network */
 
 #define INTNET

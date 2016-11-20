@@ -246,10 +246,6 @@ int clearuser(int usern)
     while (user(usern)->encrypt!=NULL)
         user(usern)->encrypt=removestring(0,user(usern)->encrypt);
 #endif
-#ifdef TRANSLATE
-    while (user(usern)->translates!=NULL)
-        user(usern)->translates=removestring(0,user(usern)->translates);
-#endif
 #ifdef SCRIPTING
     clearuserscript(usern);
 #endif

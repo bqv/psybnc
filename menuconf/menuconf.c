@@ -70,7 +70,6 @@ int confbase=0;
 struct comopt {
     int supenc;
     int supenctype;
-    int suptrans;
     int supint;
     int suptrl;
     int suplinks;
@@ -727,7 +726,6 @@ int readconfigh()
 	    /* standard defintions, all on except oIdentd */
 	    comoptions->supenc=true;
 	    comoptions->supenctype=false;
-	    comoptions->suptrans=true;
 	    comoptions->supint=true;
 	    comoptions->suptrl=true;
 	    comoptions->suplinks=true;
@@ -761,8 +759,6 @@ int readconfigh()
 		comoptions->supenc=true;
 	    if(strstr(buf," IDEA")!=NULL)
 		comoptions->supenctype=true;
-	    if(strstr(buf," TRANSLATE")!=NULL)
-		comoptions->suptrans=true;
 	    if(strstr(buf," INTNET")!=NULL)
 		comoptions->supint=true;
 	    if(strstr(buf," TRAFFICLOG")!=NULL)
@@ -868,8 +864,6 @@ int writeconfig()
 	else
 	    fprintf(config,"/* Encryption Type*/\n\n#define BLOWFISH\n\n");
     }
-    if(comoptions->suptrans)
-	fprintf(config,"/* Allow Translation */\n\n#define TRANSLATE\n\n");
     if(comoptions->supint)
 	fprintf(config,"/* Allow internal network */\n\n#define INTNET\n\n");
     if(comoptions->suptrl)
@@ -934,10 +928,6 @@ int setupcompilingoptions()
 	strcpy(cm1,"[ ] Support Encryption");
 	strcpy(cm2,"    Encryption Type: None");
     }
-    if(comoptions->suptrans)
-	strcpy(cm3,"[X] Support Translation");
-    else
-	strcpy(cm3,"[ ] Support Translation");
     if(comoptions->supint)
 	strcpy(cm4,"[X] Support internal Network");
     else
@@ -1131,9 +1121,6 @@ int compilingoptions()
 		    break;
 		case 202:
 		    comoptions->supenctype=!comoptions->supenctype;
-		    break;
-		case 203:
-		    comoptions->suptrans=!comoptions->suptrans;
 		    break;
 		case 204:
 		    comoptions->supint=!comoptions->supint;

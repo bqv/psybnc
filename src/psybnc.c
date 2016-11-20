@@ -113,9 +113,6 @@ int bncalarm(void)
     if(slice==3)
     { 
 	checkdccs();
-#ifdef TRANSLATE
-	cleartranslates();
-#endif
 	checkdcctimeouts();
 	slice=0;
     }

@@ -20,9 +20,6 @@ char *buildversion()
 #ifdef IDEA
     strcat(ver,"I");
 #endif
-#ifdef TRANSLATE
-    strcat(ver,"t");
-#endif
 #ifdef INTNET
     strcat(ver,"I");
 #endif

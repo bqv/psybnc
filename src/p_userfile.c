@@ -248,14 +248,6 @@ int loaduser (int usernum) {
        user(usernum)->encrypt=loadlist(fnmuser,user(usernum)->encrypt);
    }
 #endif
-#ifdef TRANSLATE
-   pcontext;
-   if(user(usernum)->translates==NULL)
-   {
-       ap_snprintf(fnmuser,sizeof(fnmuser),lngtxt(935),usernum);
-       user(usernum)->translates=loadlist(fnmuser,user(usernum)->translates);
-   }
-#endif
 #ifdef TRAFFICLOG
    pcontext;
    if(user(usernum)->trafficlog!=NULL)

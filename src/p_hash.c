@@ -132,11 +132,6 @@ struct hasht inboundhash[]={
     {1174,	cmddelencrypt,	1175,	1176	,0,0},
     {1177,	cmdlistencrypt,	1178,	1179	,0,0},
 #endif
-#ifdef TRANSLATE
-    {1180,	cmdtranslate,	1181,	1182	,0,0},
-    {1183,	cmddeltranslate,1184,	1185	,0,0},
-    {1186,	cmdlisttranslate,1187,	1188	,0,0},
-#endif
     {1189,	cmdrehash,	1190,	1191	,0,1},
 #ifdef MULTIUSER
     {1192,	cmdadmin,	1193,	1194	,0,1},

@@ -1657,84 +1657,6 @@ int cmdencrypt(int usern) {
 
 #endif
 
-#ifdef TRANSLATE
-
-/* add a translator */
-
-int cmdtranslate(int usern) {
-    char cfile[40];
-    char *pt;
-    int userp;
-    char *langs[19];
-    char buf[100];
-    int ec;
-    int isa=0,isb=0;
-    langs[0]= "en_de";
-    langs[1]= "en_fr";
-    langs[2]= "en_it";
-    langs[3]= "en_pt";
-    langs[4]= "de_en";
-    langs[5]= "fr_en";
-    langs[6]= "it_en";
-    langs[7]= "pt_en";
-    langs[8]= "en_zh";
-    langs[9]= "en_ja";
-    langs[10]="en_ko";
-    langs[11]="en_es";
-    langs[12]="en_ru";
-    langs[13]="fr_de";
-    langs[14]="de_fr";
-    langs[15]="ja_en";
-    langs[16]="ko_en";
-    langs[17]="ru_en";
-    langs[18]="es_en";
-    pcontext;
-    if (user(usern)->parent!=0) userp=user(usern)->parent; else userp=usern;
-    if (strlen(irccontent) == 0) {
-        ssnprintf(user(usern)->insock,lngtxt(197),user(userp)->nick);
-	return 0x0;
-    }
-    if (strlen(ircto) == 0 || *ircto=='+') {
-        ssnprintf(user(usern)->insock,lngtxt(198),user(userp)->nick);
-	return 0x0;
-    }
-    if (strchr(irccontent,';')) {
-        ssnprintf(user(usern)->insock,lngtxt(199),user(userp)->nick);
-	return 0x0;
-    }
-    strmncpy(buf,irccontent,sizeof(buf));
-    pt=strchr(buf,' ');
-    if(pt==NULL)
-    {
-        ssnprintf(user(usern)->insock,lngtxt(200),user(userp)->nick);
-	return 0x0;
-    }
-    *pt++=0;
-    if(strlen(pt)!=5 || strlen(buf)!=5)
-    {
-	ssnprintf(user(usern)->insock,lngtxt(201),user(userp)->nick);
-	return 0x0;
-    }
-    ec=0;
-    while(ec<19)
-    {
-	if(strstr(langs[ec],pt)!=NULL) isa=1;
-	if(strstr(langs[ec],buf)!=NULL) isb=1;
-	ec++;
-    }
-    if(isa==1 && isb==1)
-    {
-	ap_snprintf(cfile,sizeof(cfile),lngtxt(202),usern);
-	ucase(ircto);
-	user(usern)->translates=writelist(irccontent,ircto,cfile,user(usern)->translates);
-	ssnprintf(user(usern)->insock,lngtxt(203),user(userp)->nick,ircto,irccontent);
-    } else
-	ssnprintf(user(usern)->insock,lngtxt(204),user(userp)->nick);
-    return 0x0;
-}
-
-#endif
-
 /* remove op entry */
 
 int cmddelop(int usern) {
@@ -1873,25 +1795,6 @@ int cmddelencrypt(int usern) {
 
 #endif
 
-#ifdef TRANSLATE
-
-/* delete encryption */
-
-int cmddeltranslate(int usern) {
-    char cfile[40];
-    pcontext;
-    if (strlen(irccontent) == 0) {
-        ssnprintf(user(usern)->insock,lngtxt(226),user(usern)->nick);
-	return 0x0;
-    }
-    ap_snprintf(cfile,sizeof(cfile),lngtxt(227),usern);
-    user(usern)->translates=eraselist(atoi(irccontent),cfile,user(usern)->translates);
-    ssnprintf(user(usern)->insock,lngtxt(228),user(usern)->nick,irccontent);
-    return 0x0;
-}
-
-#endif
-
 /* list the ops */
 
 int cmdlistops(int usern) {
@@ -1977,23 +1880,6 @@ int cmdlistencrypt(int usern) {
     ssnprintf(user(usern)->insock,lngtxt(240),user(userp)->nick);
     return 0x0;
 }
-
-#endif
-
-#ifdef TRANSLATE
-
-/* list all translators */
-
-int cmdlisttranslate(int usern) {
-    int userp;
-    pcontext;
-    if (user(usern)->parent!=0) userp=user(usern)->parent; else userp=usern;
-    ssnprintf(user(usern)->insock,lngtxt(241),user(userp)->nick);
-    liststrings(user(usern)->translates,usern);
-    ssnprintf(user(usern)->insock,lngtxt(242),user(userp)->nick);
-    return 0x0;
-}
-
 
 #endif
 
@@ -2461,63 +2347,6 @@ int checkcrypt(int usern)
 
 #endif
 
-#ifdef TRANSLATE
-
-int checktranslate(int usern)
-{
-    struct stringarray *lkm;
-    int rc=0;
-    int dest=0;
-    char buf[200],buf1[200];
-    char *tomatch;
-    char *pt,*pt1,*pt2,*er;
-    lkm=user(usern)->translates;
-
-    if(*ircbuf==':')
-    {
-        dest=TR_FROM;
-        if(strchr(user(usern)->chantypes,*ircto))
-        {
-    	    tomatch=ircto;
-	} else {
-	    tomatch=ircnick;
-	}
-    } else {
-	dest=TR_TO;
-	tomatch=ircto;
-    }
-    strmncpy(buf,tomatch,sizeof(buf));
-    ucase(buf);
-    while(lkm!=NULL)
-    {
-	strmncpy(buf1,lkm->entry,sizeof(buf1));
-	pt=buf1;
-	pt2=strchr(buf1,';');
-	if(pt2==NULL) return 0x1;
-	*pt2++=0;
-	ucase(pt2);
-	if(strlen(pt2)==strlen(buf))
-	{
-	    if(strstr(pt2,buf)==pt2)
-	    {
-		pt1=strchr(pt,' ');
-		if(pt1==NULL) return 0x1;
-		*pt1++=0;
-		if(dest==TR_TO)
-		{
-		    pt1=pt;
-		}
-		rc=addtranslate(usern,irccontent,ircfrom,ircto,dest,pt1,irccommand);
-		return 0x0;
-	    }
-	}
-	lkm=lkm->next;
-    }
-    return 0x1;
-}
-
-#endif
-
 int cmdping(int usern)
 {
     /* needs to send back a server pong (for some evil irc-scripts) */
@@ -2580,9 +2409,6 @@ int cmdprivmsg(int usern)
 	 return 0;
     }
     rc=1;
-#ifdef TRANSLATE
-    rc=checktranslate(usern);
-#endif
 #ifdef CRYPT
     checkcrypt(usern);
 #endif

@@ -143,12 +143,6 @@ struct stringarray *hostallows=NULL;
 
 struct stringarray *conf=NULL;
 
-#ifdef TRANSLATE
-
-struct translatet *translate=NULL;
-
-#endif
-
 #ifdef SCRIPTING
 
 struct subtask *subtasks;

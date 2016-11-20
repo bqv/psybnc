@@ -469,9 +469,6 @@ struct usert {
 #ifdef CRYPT
   struct stringarray *encrypt;
 #endif
-#ifdef TRANSLATE
-  struct stringarray *translates;
-#endif
   struct dcct *pdcc;
   struct linknodes *dcc;
 #ifdef TRAFFICLOG
@@ -558,27 +555,6 @@ enum resolve_states {
 #define IS_A(x)   (x->state == STATE_AREQ)
 #define IS_AAAA(x) (x->state == STATE_AAAAREQ)
 #define IS_PTR6(x) (x->state == STATE_PTR6REQ)
-
-#ifdef TRANSLATE
-
-#define TR_TO	0x0000
-#define TR_FROM 0x0001
-
-struct translatet {
-  int uid;
-  int usern;
-  int delayed;
-  int sock;
-  char *translatetext;
-  char *translatedtext;
-  char *dest;
-  char *source;
-  char *lang;
-  int direction;   /* 0=to user ,1=from user */
-  struct translatet *next;
-};
-
-#endif
 
 #ifndef P_MAIN
 
@@ -705,13 +681,6 @@ extern int cline;
 
 extern struct stringarray *hostallows;
 
-#ifdef TRANSLATE
-
-extern struct translatet *translate;
-
-
-#endif
-
 #ifdef SUNOS
 extern int error_num;
 #endif
@@ -832,19 +801,11 @@ int cmdencrypt(int usern);
 int cmddelencrypt(int usern);
 int cmdlistencrypt(int usern);
 #endif
-#ifdef TRANSLATE
-int cmdtranslate(int usern);
-int cmddeltranslate(int usern);
-int cmdlisttranslate(int usern);
-#endif
 int cmdaddallow(int usern);
 int cmddelallow(int usern);
 int cmdlistallow(int usern);
 #ifdef CRYPT
 int checkcrypt(int usern);
-#endif
-#ifdef TRANSLATE
-int checktranslate(int usern);
 #endif
 int quitclient(int usern);
 int userinerror(int usern, int errn);
@@ -1233,13 +1194,6 @@ int removeinternal(char *server);
 int joinintnettolink(int link);
 
 
-#endif
-#endif
-
-#ifdef TRANSLATE
-#ifndef P_TRANSLATE
-int addtranslate(int usern, char *totranslate, char *source, char *dest, int direction, char *lang, char *command);
-int cleartranslates();
 #endif
 #endif
 
