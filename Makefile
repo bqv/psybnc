@@ -1,6 +1,7 @@
 CC	= gcc
 CCFLAGS = 
 
+
 all:	$(OBJS)
 	@echo Initializing bouncer compilation
 	@echo [*] Running Conversion Tool for older psyBNC Data.
@@ -16,6 +17,14 @@ all:	$(OBJS)
 	@make -f makefile.out
 	@ls -al psybnc
 	@echo done.
+
+install:    psybnc
+	@echo Installing...
+	cp -r . /usr/share/psybnc
+	install -m 0755 -T psybncchk /usr/bin/psybnc
+	@echo done.
+
+.PHONY: install
 
 menuconfig:
 	@echo Initializing Menu-Configuration
@@ -50,8 +59,32 @@ menuconfig-curses:
 	@echo done.
 
 dist:
-	cd ..; tar -cvf psyBNC2.3.2-4.tar psybnc; gzip -c psyBNC2.3.2-4.tar > psyBNC2.3.2-4.tar.gz; rm psyBNC2.3.2-4.tar
+	cd ..; tar -cvf psyBNC-2.3.2-9.tar psybnc; gzip -c psyBNC-2.3.2-9.tar > psyBNC-2.3.2-9.tar.gz; rm psyBNC-2.3.2-9.tar
 
+cleandist:
+	@echo Cleaning.
+	rm -rf psybnc
+	rm -rf src/*.o
+	rm -rf tools/autoconf
+	rm -rf tools/chkenv
+	rm -rf tools/chkipv6
+	rm -rf tools/chkresolv
+	rm -rf tools/chksock
+	rm -rf tools/chkssl
+	rm -rf tools/convconf	
+	rm -rf tools/.chk
+	rm -rf tools/sys
+	rm -rf menuconf/menuconf
+	rm -rf makefile.out
+	rm -rf key/*
+	rm -rf log/*.LOG
+	rm -rf log/*.old
+	rm -rf log/*.TRL
+	rm -rf log/*.log
+	rm -rf downloads
+	rm -rf salt.h
+	rm -rf psybnc.pid	
 clean:
 	@echo Cleaning.
+	rm -rf psybnc
 	rm -rf src/*.o
