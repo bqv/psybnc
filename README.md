@@ -1,5 +1,4 @@
-psyBNC 2.3.2
-------------
+# psyBNC 2.3.2 #
 
 This program is useful for people who cannot be on irc all the time. Its used to 
 keep a connection to irc and your irc client connected, or also allows to act as 
@@ -45,84 +44,82 @@ was added. And some bugs fixed.
 The OVERVIEW:
 -------------
 
-a.) Compiling
-b.) setting up
+a. Compiling
+b. setting up
 
 What is psyBNC capable of ?
 
-1.) It stays connected when you disconnect
-a.) The DYNAMIC flag disables this
-2.) It allows Full Online Administration, the only thing you will have
-    to set up before starting is your port where the demon should
-    listen (standard is set to 31337. arent we cool ?).
-    Also, psyBNC 2.2 offers a GUI-Interface for setting up the
-    major settings for psyBNC. just insert
-    
-    make menuconfig
-    
-    at your shell prompt. Be sure your terminal program allows
-    the handling of curses and the shell host has curses installed.
-    
-3.) It allows VHOSTS. It also allows the usage of VHOSTS on linked
-    bouncers, if the admin declared the link to your bouncer as
-    relaylink.
-4.) It allows you to set bans on the client
-5.) It allows you to set Users who could get op from psyBNC matched
-    by password and hostname.
-6.) It allows you to set Hosts and Passwords to clients, where psyBNC
-    could get ops from, if it once get disconnected or you
-    just want to automize that process even when you are connected.
-    Also, it allows the automatic connection build to eggdrop and
-    getting ops from those (see bot-dcc).
-7.) Its absolutely floodproof due to the fact it has no responses at
-    all. From 2.2, it got a reliable flood protection, so you 
-    even could post full articles to channels without getting
-    flooded.
-8.) Its hack proof (as far as i can say *g*)
-    It has no backdoors.
-9.) It allows a partyline on psyBNC (a channel named &partyline)
-    or querying specified Users on psyBNC (prefixed User-Login with $),
-    also on linked bouncers.
-    From 2.2 it allows a internal IRCD mode, where psybnc emulates
-    a shared full compatible IRCD using the network token "int".
-    All Channels and users will be shared over linked bouncers, also
-    modes and kicks are possible, you can get op on channels and give
-    this to others also.
-10.)It supports full logging of Messages and traffic (channel traffic
-    included into Version 2.1). From 2.2 it stores those logs in 
-    a different directory.
-11.)It supports linking to other psyBNCs. This allows a shared partyline
-    of those, who are using psyBNC and from 2.2 a shared irc network
-    on psyBNC itself, the so called IntNet, which will be adressed
-    using the token int~ (e. g. /join int~#mychannel).
-12.)It allows multiple connections of one Client to different irc-servers
-    and networks. So you just can be connected to ircnet and efnet with
-    only one client programm running on your home box.
-13.)It has inbuild password-encryption. Changed to blowfish on version 2.1.
-14.)It allows the automatic linkage of a user to eggdrop bots using
-    a dcc session.
-    The traffic to/from the bot will be managed by querying to the 
-    added botname with a leading ')'.
-15.)It has connection and talk encryption. 
+1. It stays connected when you disconnect
+a. The DYNAMIC flag disables this
+2. It allows Full Online Administration, the only thing you will have
+   to set up before starting is your port where the demon should
+   listen (standard is set to 31337. arent we cool ?).
+   Also, psyBNC 2.2 offers a GUI-Interface for setting up the
+   major settings for psyBNC. just insert
+   
+   make menuconfig
+   
+   at your shell prompt. Be sure your terminal program allows
+   the handling of curses and the shell host has curses installed.
+   
+3. It allows VHOSTS. It also allows the usage of VHOSTS on linked
+   bouncers, if the admin declared the link to your bouncer as
+   relaylink.
+4. It allows you to set bans on the client
+5. It allows you to set Users who could get op from psyBNC matched
+   by password and hostname.
+6. It allows you to set Hosts and Passwords to clients, where psyBNC
+   could get ops from, if it once get disconnected or you
+   just want to automize that process even when you are connected.
+   Also, it allows the automatic connection build to eggdrop and
+   getting ops from those (see bot-dcc).
+7. Its absolutely floodproof due to the fact it has no responses at
+   all. From 2.2, it got a reliable flood protection, so you 
+   even could post full articles to channels without getting
+   flooded.
+8. Its hack proof (as far as i can say *g*)
+   It has no backdoors.
+9. It allows a partyline on psyBNC (a channel named &partyline)
+   or querying specified Users on psyBNC (prefixed User-Login with $),
+   also on linked bouncers.
+   From 2.2 it allows a internal IRCD mode, where psybnc emulates
+   a shared full compatible IRCD using the network token "int".
+   All Channels and users will be shared over linked bouncers, also
+   modes and kicks are possible, you can get op on channels and give
+   this to others also.
+10.It supports full logging of Messages and traffic (channel traffic
+   included into Version 2.1). From 2.2 it stores those logs in 
+   a different directory.
+11.It supports linking to other psyBNCs. This allows a shared partyline
+   of those, who are using psyBNC and from 2.2 a shared irc network
+   on psyBNC itself, the so called IntNet, which will be adressed
+   using the token int~ (e. g. /join int~#mychannel).
+12.It allows multiple connections of one Client to different irc-servers
+   and networks. So you just can be connected to ircnet and efnet with
+   only one client programm running on your home box.
+13)It has inbuild password-encryption. Changed to blowfish on version 2.1.
+14.It allows the automatic linkage of a user to eggdrop bots using
+   a dcc session.
+   The traffic to/from the bot will be managed by querying to the 
+   added botname with a leading ')'.
+15.It has connection and talk encryption. 
 
-    After the keys where set, a block encrypted bouncer connection is build.
-    Symetric encryption is done using the blowfish and IDEA algorithm.
-    Talk encryption is only done by blockciphers, you have to set your
-    encryption password local, also your partner(s) on irc who want
-    to talk encrypted. Keys have to match for right decryption. You can
-    set different keys also to users or channels.
-
-    Connection Encryption in psyBNC2.3 was moved to SSL. If you want
-    to encrypt your Bouncerlinks or your Connections from Users, you
-    would have to install the OpenSSL package available on www.openssl.org.
-    If a Client wants to install to an SSL-Listener, he would have to 
-    setup stunnel on his home machine.
-
-16.)It has a translation module.
-    Did you ever want to talk to someone from italy without using
-    a dictionary ? Well, psybnc has (from Version 2.1) a translator
-    for talk inbuild. Currently supported are:
-    
+   After the keys where set, a block encrypted bouncer connection is build.
+   Symetric encryption is done using the blowfish and IDEA algorithm.
+   Talk encryption is only done by blockciphers, you have to set your
+   encryption password local, also your partner(s) on irc who want
+   to talk encrypted. Keys have to match for right decryption. You can
+   set different keys also to users or channels.
+   Connection Encryption in psyBNC2.3 was moved to SSL. If you want
+   to encrypt your Bouncerlinks or your Connections from Users, you
+   would have to install the OpenSSL package available on www.openssl.org.
+   If a Client wants to install to an SSL-Listener, he would have to 
+   setup stunnel on his home machine.
+16.It has a translation module.
+   Did you ever want to talk to someone from italy without using
+   a dictionary ? Well, psybnc has (from Version 2.1) a translator
+   for talk inbuild. Currently supported are:
+   
 	- english to italian
 	- english to german
 	- english to portugese
@@ -154,9 +151,9 @@ a.) The DYNAMIC flag disables this
     
     (Someone got a polish or slovenian dictonary ? *g*)
     
-17.)psyBNC2.2 is modular. If you want to disable modules, just edit the
+17. psyBNC2.2 is modular. If you want to disable modules, just edit the
     config.h to disable features as like CRYPT, TRANSLATE or PARTYCHANNEL.
-18.)psyBNC allows Hostrestrictions
+18. psyBNC allows Hostrestrictions
     A file named psbnc.hosts keeps all Hosts which may connect to your
     bouncer. Remember, that also linkhosts need to be added.
     Moved to the psybnc.conf file in version 2.2.
@@ -181,8 +178,8 @@ a.) The DYNAMIC flag disables this
 25. psyBNC2.3 is multi lingual. On default, english and german
     are supported.
 
-c.) Contact me for suggestions
-d.) Credits
+c. Contact me for suggestions
+d. Credits
 
 (a) Ths Program was only tested on Linux, freebsd and SunOs (5.6), also
     solaris 7 and 8. 
